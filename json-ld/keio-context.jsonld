@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "keio": "https://www.keio.ac.jp/ns#",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "name": "name",
+    "url": "url",
+    "description": "description",
+    "foundingDate": "foundingDate",
+    "location": "location",
+    "logo": "logo",
+    "sameAs": "sameAs",
+    "department": "department",
+    "publishingPrinciples": "publishingPrinciples",
+    "CollegeOrUniversity": "CollegeOrUniversity",
+    "repository": {
+      "@id": "keio:repository",
+      "@type": "@id"
+    },
+    "metadataApi": {
+      "@id": "keio:metadataApi",
+      "@type": "@id"
+    },
+    "record": {
+      "@id": "oai:record",
+      "@type": "@id"
+    },
+    "identifier": "dc:identifier",
+    "title": "dc:title",
+    "creator": "dc:creator",
+    "datestamp": "oai:datestamp"
+  },
+  "@type": "CollegeOrUniversity",
+  "@id": "https://www.keio.ac.jp/en/",
+  "name": "Keio University",
+  "url": "https://www.keio.ac.jp/en/",
+  "foundingDate": "1858",
+  "location": {
+    "@type": "Place",
+    "name": "Tokyo, Japan"
+  },
+  "sameAs": [
+    "https://twitter.com/Keio_PR_eng",
+    "https://www.linkedin.com/school/keio-university/"
+  ],
+  "repository": {
+    "@type": "DigitalDocument",
+    "@id": "https://koara.lib.keio.ac.jp/",
+    "name": "KOARA (KeiO Associated Repository of Academic resources)",
+    "url": "https://koara.lib.keio.ac.jp/",
+    "description": "Keio University institutional repository exposing a public OAI-PMH 2.0 metadata-harvesting endpoint.",
+    "metadataApi": "https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php"
+  }
+}

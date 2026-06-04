@@ -68,6 +68,10 @@ common:
     url: finops/keio-finops.yml
   - type: Review
     url: review.yml
+  - type: JSONLD
+    url: json-ld/keio-context.jsonld
+  - type: Blog
+    url: blogs/blogs.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
