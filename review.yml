@@ -1,0 +1,43 @@
+name: Keio University
+description: Keio University public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/keio/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      Verified live: the KOARA institutional repository serves a valid OAI-PMH
+      2.0 endpoint (Identify returns protocolVersion 2.0). The main institution,
+      English site, and library site all resolve. No public REST API or
+      developer portal was found; keio.jp SSO (Google Workspace), Canvas K-LMS,
+      K-RIS, KOSMOS, and the Keio Object Hub are account-gated with no published
+      open API docs. Identity is federated via GakuNin (SAML/Shibboleth, eduGAIN).
+      The github.com/keio account is an unrelated individual, not the
+      institution, so it was excluded; only research-lab GitHub orgs exist. No
+      endpoints were fabricated.
+    endpoints:
+      - url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 Identify response; baseURL and granularity confirmed.
+      - url: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+        status: 200
+        note: KOARA repository overview (English); XooNips platform, since 2006.
+      - url: https://koara.lib.keio.ac.jp/
+        status: 200
+        note: KOARA repository home.
+      - url: https://www.keio.ac.jp/en/
+        status: 200
+        note: Official Keio University English website.
+      - url: https://www.lib.keio.ac.jp/en/
+        status: 200
+        note: Keio University Libraries (Media Centers) website.
+      - url: https://www.itc.keio.ac.jp/en/keiojp_manual_application.html
+        status: 200
+        note: IT Center application directory; SSO over Google Workspace, no public API docs.
+      - url: https://objecthub.keio.ac.jp/en
+        status: 200
+        note: Keio Object Hub art/culture portal; no public IIIF/API access documented.
+      - url: https://github.com/keio
+        status: 200
+        note: Unrelated individual developer account, NOT the institution; excluded.

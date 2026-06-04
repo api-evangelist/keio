@@ -1,0 +1,73 @@
+aid: keio
+name: Keio University
+description: >-
+  Keio University is a private research university in Tokyo, Japan, founded in
+  1858, and ranked #188 in the QS World University Rankings 2025. Its public
+  machine-readable footprint is led by KOARA (KeiO Associated Repository of
+  Academic resources), the institutional repository, which exposes a live
+  OAI-PMH 2.0 metadata-harvesting endpoint. Most other institutional systems
+  (keio.jp SSO over Google Workspace, Canvas K-LMS, the K-RIS researcher system,
+  KOSMOS library discovery, and the Keio Object Hub culture portal) are
+  account-gated and do not publish open developer API documentation. Identity is
+  federated through GakuNin, the Japanese academic SAML/Shibboleth federation
+  that participates in eduGAIN.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/keio/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Institutional Repository
+  - OAI-PMH
+  - Open Access
+  - Japan
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: keio:koara-oai-pmh
+    name: KOARA OAI-PMH Metadata API
+    description: >-
+      KOARA (KeiO Associated Repository of Academic resources) is Keio
+      University's institutional repository, released in 2006 and running on the
+      XooNips platform. It exposes a publicly accessible OAI-PMH 2.0 endpoint for
+      harvesting metadata of its scholarly records (theses, articles, and other
+      academic resources). The Identify response confirms protocol version 2.0
+      with second-level datestamp granularity.
+    humanURL: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+    baseURL: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php
+    tags:
+      - OAI-PMH
+      - Institutional Repository
+      - Metadata
+      - Open Access
+      - Research
+    properties:
+      - type: Documentation
+        url: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+common:
+  - type: Website
+    url: https://www.keio.ac.jp/en/
+  - type: LibraryWebsite
+    url: https://www.lib.keio.ac.jp/en/
+  - type: Authentication
+    url: https://www.gakunin.jp/en
+  - type: Twitter
+    url: https://twitter.com/Keio_PR_eng
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/keio-university/
+  - type: Plans
+    url: plans/keio-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/keio-rate-limits.yml
+  - type: FinOps
+    url: finops/keio-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
