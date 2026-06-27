@@ -4,11 +4,11 @@
     {
       "source": "https://www.keio.ac.jp/en/",
       "feed_url": "https://www.keio.ac.jp/en/news/",
-      "title": "",
-      "saved": 0,
-      "method": "none"
+      "title": "Keio University News",
+      "saved": 7,
+      "method": "html-scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-07T00:00:00Z"
+  "post_count": 7,
+  "fetched": "2026-06-21T17:00:00Z"
 }
