@@ -50,6 +50,8 @@ apis:
       - type: Documentation
         url: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
 common:
+  - type: DomainSecurity
+    url: security/keio-domain-security.yml
   - type: Website
     url: https://www.keio.ac.jp/en/
   - type: LibraryWebsite
