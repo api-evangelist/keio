@@ -91,6 +91,13 @@ apis:
   - SAML
   - eduGAIN
   - GakuNin
+  - SSO
+  tags_raw:
+  - Identity Federation
+  - Shibboleth
+  - SAML
+  - eduGAIN
+  - GakuNin
   - Single Sign-On
   properties:
   - type: IdentityFederation
@@ -119,7 +126,7 @@ apis:
   humanURL: https://keio.okta.com/
   baseURL: https://keio.okta.com/.well-known/openid-configuration
   tags:
-  - Single Sign-On
+  - SSO
   - OpenID Connect
   - Authentication
   - Identity
@@ -158,6 +165,12 @@ apis:
   humanURL: https://k-ris.keio.ac.jp/
   baseURL: https://k-ris.keio.ac.jp/
   tags:
+  - Research Information
+  - CRI
+  - Elsevier Pure
+  - Researcher Profiles
+  - Vendor Platform
+  tags_raw:
   - Research Information
   - CRIS
   - Elsevier Pure
