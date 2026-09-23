@@ -1,0 +1,73 @@
+{
+  "label": "グーテンベルク42行聖書",
+  "attribution": "慶應義塾大学メディアセンター\nKeio University Libraries",
+  "license": "<a href=\"https://dcollections.lib.keio.ac.jp/ja/about\" target=\"_blank\">https://dcollections.lib.keio.ac.jp/ja/about</a>",
+  "@id": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json",
+  "@type": "sc:Manifest",
+  "viewingDirection": "left-to-right",
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "within": "https://dcollections.lib.keio.ac.jp/",
+  "sequences": [
+    {
+      "@id": "https://iiif.lib.keio.ac.jp/iipsrv/GTB/sequence.json",
+      "@type": "sc:Sequence",
+      "canvases": [
+        {
+          "label": "000a",
+          "@id": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/page1",
+          "@type": "sc:Canvas",
+          "height": 2933,
+          "width": 3800,
+          "images": [
+            {
+              "@id": "https://iiif.lib.keio.ac.jp/iiif/GTB/ano1",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/page1",
+              "resource": {
+                "@id": "https://iiif.lib.keio.ac.jp/iiif/GTB/img1",
+                "@type": "dctypes:Image",
+                "format": "Image/jpeg",
+                "height": 2933,
+                "width": 3800,
+                "service": {
+                  "@id": "https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/level1.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "label": "000av",
+          "@id": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/page2",
+          "@type": "sc:Canvas",
+          "height": 2933,
+          "width": 3800,
+          "images": [
+            {
+              "@id": "https://iiif.lib.keio.ac.jp/iiif/GTB/ano2",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "on": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/page2",
+              "resource": {
+                "@id": "https://iiif.lib.keio.ac.jp/iiif/GTB/img2",
+                "@type": "dctypes:Image",
+                "format": "Image/jpeg",
+                "height": 2933,
+                "width": 3800,
+                "service": {
+                  "@id": "https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000av.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/level1.json"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "x-excerpt-note": "Excerpt: sequences[0].canvases truncated from 656 to the first 2 for artifact size. Full manifest at the @id URL."
+}

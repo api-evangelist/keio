@@ -1,0 +1,59 @@
+<!-- Excerpt of https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml (HTTP 200, 5,653,150 bytes,
+     fetched 2026-09-01). Only the EntityDescriptor for Keio University's own identity provider is
+     retained; X.509 certificate bodies are omitted for size. The namespace declarations the GakuNin aggregate
+     carries on its EntitiesDescriptor root (md, ds, mdrpi, mdui, shibmd) are restated on this
+     EntityDescriptor so the excerpt parses standalone. Unmodified otherwise. -->
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" ID="PI0119JP" entityID="https://gakunin1.keio.ac.jp/idp/shibboleth">
+  <Extensions>
+    <mdrpi:RegistrationInfo xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" registrationAuthority="https://www.gakunin.jp" registrationInstant="2014-02-24T10:22:10Z">
+      <mdrpi:RegistrationPolicy xml:lang="en">https://www.gakunin.jp/en/join</mdrpi:RegistrationPolicy>
+      <mdrpi:RegistrationPolicy xml:lang="ja">https://www.gakunin.jp/join</mdrpi:RegistrationPolicy>
+    </mdrpi:RegistrationInfo>
+</Extensions>
+  <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <Extensions>
+      <shibmd:Scope regexp="false">keio.ac.jp</shibmd:Scope>
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="ja">慶應義塾大学</mdui:DisplayName>
+        <mdui:DisplayName xml:lang="en">Keio University</mdui:DisplayName>
+        <mdui:Keywords xml:lang="en">category:location:kanto category:organizationType:university</mdui:Keywords>
+      </mdui:UIInfo>
+      <mdui:DiscoHints xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:IPHint>131.113.0.0/16</mdui:IPHint>
+        <mdui:IPHint>133.27.0.0/16</mdui:IPHint>
+        <mdui:DomainHint>keio.ac.jp</mdui:DomainHint>
+        <mdui:DomainHint>keio.jp</mdui:DomainHint>
+        <mdui:GeolocationHint>geo:35.649031,139.742997</mdui:GeolocationHint>
+      </mdui:DiscoHints>
+    </Extensions>
+    <KeyDescriptor>
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>[X.509 certificate omitted for artifact size]</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </KeyDescriptor>
+    <md:KeyDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>[X.509 certificate omitted for artifact size]</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://keio.ex-tic.com/auth/gakunin/saml2/assertions"/>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://keio.ex-tic.com/auth/gakunin/saml2/assertions"/>
+  </IDPSSODescriptor>
+  <Organization>
+    <OrganizationName xml:lang="en">Keio University</OrganizationName>
+    <OrganizationName xml:lang="ja">慶應義塾大学</OrganizationName>
+    <OrganizationDisplayName xml:lang="en">Keio University</OrganizationDisplayName>
+    <OrganizationDisplayName xml:lang="ja">慶應義塾大学</OrganizationDisplayName>
+    <OrganizationURL xml:lang="en">http://www.keio.ac.jp</OrganizationURL>
+  </Organization>
+  <ContactPerson contactType="technical">
+    <GivenName>Information Technology Center</GivenName>
+    <SurName>Keio University</SurName>
+    <EmailAddress>mailto:gakunin@itc.keio.ac.jp</EmailAddress>
+  </ContactPerson>
+</EntityDescriptor>

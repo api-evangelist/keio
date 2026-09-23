@@ -1,0 +1,46 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Live probes on 2026-09-01 of every Keio surface recorded in apis.yml, plus the OpenID Connect
+  discovery document at https://keio.okta.com/.well-known/openid-configuration (HTTP 200).
+provider: Keio University
+providerId: keio
+description: >-
+  Keio University defines no authorization scopes on any surface it operates itself. This file
+  records that as a measured absence rather than leaving the artifact out, because the reason
+  matters: the two institution-operated APIs — KOARA's OAI-PMH interface and the Media Center's
+  IIIF endpoints — are fully anonymous, and an anonymous API has no scope model by construction,
+  not by omission. There is nothing to divide because there is nothing to grant.
+
+
+  The only scope vocabulary reachable anywhere in the estate belongs to Keio's Okta tenant, and it
+  is Okta's standard OpenID Connect scope set rather than anything Keio authored. It is recorded
+  below with its operator marked, so that it is never read as institutional engineering.
+
+institution_operated:
+  scopes: []
+  detail: >-
+    No scopes. KOARA OAI-PMH and the IIIF Presentation and Image APIs accept unauthenticated
+    requests and return complete responses; there is no Authorization header, no token, no consent
+    screen and therefore no scope.
+
+tenant_operated:
+  - surface: Keio Okta tenant
+    issuer: https://keio.okta.com
+    x-operator: tenant
+    x-operator-evidence: >-
+      keio.okta.com is Keio's tenant on the Okta identity platform. The scopes advertised are
+      Okta's platform vocabulary, identical for every Okta org, and are not authored by Keio.
+    source: examples/keio-okta-openid-configuration.json
+    scopes_advertised_note: >-
+      The discovery document advertises the standard OpenID Connect scope set (openid, profile,
+      email, address, phone, offline_access) together with Okta's org-level scopes. Because these
+      are the platform's and not the institution's, they are described rather than enumerated as
+      Keio's own — enumerating a vendor's scope list under an institution's slug is the same
+      attribution error this pipeline exists to prevent.
+    obtainable_by_public: false
+    obtainable_detail: >-
+      A client_id is created only by Keio IT staff. The discovery document is readable; the
+      authorization it describes is not reachable by an unaffiliated caller.

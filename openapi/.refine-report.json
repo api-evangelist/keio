@@ -1,0 +1,27 @@
+{
+  "provider": "keio",
+  "sources": [
+    "_original/keio-iiif-openapi.yml",
+    "_original/keio-koara-oai-pmh-openapi.yml"
+  ],
+  "outputs": [
+    "keio-iiif-api-openapi.yml",
+    "keio-metadata-harvesting-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "2 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "keio-iiif-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "keio-koara-oai-pmh-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/keio-koara-oai-pmh-openapi_2.yml: archived document superseded by a larger archived document",
+    "_original/keio-iiif-openapi_2.yml: archived document superseded by a larger archived document",
+    "keio-iiif-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "keio-metadata-harvesting-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

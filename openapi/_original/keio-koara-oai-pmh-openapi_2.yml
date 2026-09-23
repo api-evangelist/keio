@@ -1,0 +1,168 @@
+# x-archived-from: keio-koara-oai-pmh-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.1.0
+info:
+  title: KOARA OAI-PMH Metadata Harvesting API
+  version: '2.0'
+  summary: Open Archives Initiative Protocol for Metadata Harvesting 2.0 interface for KOARA, Keio University's institutional repository.
+  description: >-
+    KOARA (KeiO Associated Repository of Academic resources) is Keio University's institutional
+    repository, run by the Keio University Media Center on the XooNips repository platform at
+    koara.lib.keio.ac.jp. It serves a publicly readable, unauthenticated OAI-PMH 2.0 interface over
+    the scholarly output of the university — departmental bulletin papers, journal articles, theses
+    and other academic resources deposited by Keio faculties, research centres and institutes.
+
+
+    This description was written by API Evangelist from live probes of the endpoint on 2026-09-01;
+    Keio publishes no OpenAPI, no WADL and no machine-readable interface description of its own.
+    Every operation, parameter, response shape and error code below was observed in a real response
+    and the captured responses are stored under `examples/`. Nothing is asserted that was not seen.
+
+
+    The endpoint answers the six OAI-PMH verbs. `Identify` reports repositoryName `koara`,
+    protocolVersion `2.0`, granularity `YYYY-MM-DDThh:mm:ssZ`, deletedRecord `transient`, an
+    earliestDatestamp of `1970-01-01T00:00:00Z` and adminEmail `mchq-system-group@keio.jp`.
+    `ListMetadataFormats` advertises two prefixes: `oai_dc` (Dublin Core) and `junii2`, the Japanese
+    institutional-repository metadata schema defined by the National Institute of Informatics for
+    IRDB harvesting. `ListSets` returns 100 sets, hierarchically scoped under `/Public` and named
+    for the faculties, graduate schools and research centres that deposit into the repository
+    (商学部, 法務研究科, メディア・コミュニケーション研究所, 産業研究所, 福澤研究センター,
+    アート・センター, 日吉紀要 and others), plus resource-type sets such as `Article`.
+
+
+    Responses are `text/xml` in the OAI-PMH 2.0 namespace. The service is anonymous — no API key,
+    no OAuth, no registration. `koara.lib.keio.ac.jp/robots.txt` is `User-agent: * / Allow: /`.
+  termsOfService: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+  contact:
+    name: Keio University Media Center — KOARA system group
+    email: mchq-system-group@keio.jp
+    url: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+  x-operator: institution
+  x-operator-evidence: >-
+    Host koara.lib.keio.ac.jp is under Keio University's own registrable domain keio.ac.jp. The
+    Identify response's adminEmail is mchq-system-group@keio.jp — a Keio address, not a vendor's.
+    The repository software (XooNips) is open source and self-hosted; there is no vendor host, no
+    vendor contact and no shared vendor contract behind this surface.
+  x-provenance:
+    generated: '2026-09-01'
+    method: derived
+    source: >-
+      Written from live probes of
+      https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php with verbs Identify,
+      ListMetadataFormats, ListSets, ListIdentifiers, GetRecord and a deliberate bad verb, all
+      HTTP 200, fetched 2026-09-01. Raw responses saved to examples/. Keio publishes no interface
+      description of its own.
+  license:
+    name: Repository terms of use — Keio University Media Center
+    url: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+servers:
+  - url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips
+    description: KOARA production OAI-PMH interface (Keio University Media Center)
+tags:
+  - name: Metadata Harvesting
+    description: OAI-PMH 2.0 verbs for discovering and harvesting KOARA's scholarly metadata.
+paths:
+  /oai.php:
+    get:
+      tags:
+        - Metadata Harvesting
+      operationId: oaiPmhRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: >-
+        Single-endpoint OAI-PMH 2.0 interface. The `verb` parameter selects the operation; the
+        remaining parameters are conditional on the verb, per the OAI-PMH 2.0 specification.
+        All responses are XML in the `http://www.openarchives.org/OAI/2.0/` namespace and carry a
+        `responseDate`, an echoed `request` element, and either a verb-named result element or an
+        `error` element with a code attribute.
+      parameters:
+        - name: verb
+          in: query
+          required: true
+          description: The OAI-PMH verb to invoke.
+          schema:
+            type: string
+            enum:
+              - Identify
+              - ListMetadataFormats
+              - ListSets
+              - ListIdentifiers
+              - ListRecords
+              - GetRecord
+        - name: metadataPrefix
+          in: query
+          required: false
+          description: >-
+            Metadata format to return. Required for ListIdentifiers, ListRecords and GetRecord.
+            KOARA advertises exactly two, observed in ListMetadataFormats.
+          schema:
+            type: string
+            enum:
+              - oai_dc
+              - junii2
+        - name: identifier
+          in: query
+          required: false
+          description: >-
+            OAI identifier of a single record. Required for GetRecord. KOARA identifiers take the
+            form `koara-j:koara_id/<NII catalogue id>-<date>-<sequence>`, for example
+            `koara-j:koara_id/AA11413507-20050000-0001`.
+          schema:
+            type: string
+        - name: set
+          in: query
+          required: false
+          description: >-
+            Restrict a listing to one set. KOARA's setSpecs are hierarchical and colon-delimited,
+            rooted at `index3` (`/Public`) — for example `index3:index8` for 商学部 (Faculty of
+            Business and Commerce) — with additional flat resource-type sets such as `Article`.
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: false
+          description: Lower bound on record datestamp, inclusive. Granularity YYYY-MM-DDThh:mm:ssZ.
+          schema:
+            type: string
+            format: date-time
+        - name: until
+          in: query
+          required: false
+          description: Upper bound on record datestamp, inclusive. Granularity YYYY-MM-DDThh:mm:ssZ.
+          schema:
+            type: string
+            format: date-time
+        - name: resumptionToken
+          in: query
+          required: false
+          description: >-
+            Flow-control token returned by a truncated ListIdentifiers, ListRecords or ListSets
+            response. Exclusive of all other parameters except `verb`.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            An OAI-PMH 2.0 response. Note that protocol-level failures are also returned with
+            HTTP 200 and an `<error code="…">` element in the body — the OAI-PMH error is in the
+            payload, not the status line. Observed error code: `badVerb`.
+          content:
+            text/xml:
+              schema:
+                type: string
+                description: OAI-PMH 2.0 XML document.
+              examples:
+                identify:
+                  summary: Identify
+                  externalValue: ../examples/keio-koara-oai-identify.xml
+                listMetadataFormats:
+                  summary: ListMetadataFormats — oai_dc and junii2
+                  externalValue: ../examples/keio-koara-oai-listmetadataformats.xml
+                listSets:
+                  summary: ListSets — 100 faculty, centre and resource-type sets
+                  externalValue: ../examples/keio-koara-oai-listsets.xml
+                listIdentifiers:
+                  summary: ListIdentifiers with metadataPrefix=oai_dc
+                  externalValue: ../examples/keio-koara-oai-listidentifiers.xml
+                badVerb:
+                  summary: Protocol error returned with HTTP 200
+                  externalValue: ../examples/keio-koara-oai-error-badverb.xml

@@ -1,0 +1,91 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Direct probes on 2026-09-01 of the agent-facing conventions on Keio's main and service hosts.
+  Every status code below is from a real fetch with a browser User-Agent.
+provider: Keio University
+providerId: keio
+description: >-
+  What an AI agent arriving at Keio University can actually do. The finding is mixed in an
+  interesting way: the institution publishes none of the modern agent-facing conventions and, on
+  its main web estate, not even the old ones — but the two surfaces it does operate are among the
+  friendliest an agent could ask for, because they are anonymous, standards-described and
+  self-describing. An agent that knows OAI-PMH or IIIF can consume Keio's scholarly and digitised
+  holdings today with no key, no negotiation and no account.
+
+conventions:
+  - name: llms.txt
+    url: https://www.keio.ac.jp/llms.txt
+    status: 404
+    present: false
+    note: A real HTTP 404 returning the site's Japanese not-found page, not a soft-404.
+  - name: robots.txt (main site)
+    url: https://www.keio.ac.jp/robots.txt
+    status: 404
+    present: false
+    note: >-
+      The primary institutional web estate publishes no robots.txt at all. Recorded as observed;
+      the absence means there is no crawl directive of any kind for the main site.
+  - name: robots.txt (KOARA repository)
+    url: https://koara.lib.keio.ac.jp/robots.txt
+    status: 200
+    present: true
+    content: 'User-agent: * / Allow: /'
+    note: Maximally permissive — the repository invites harvesting.
+  - name: robots.txt (Digital Collections)
+    url: https://dcollections.lib.keio.ac.jp/robots.txt
+    status: 200
+    present: true
+    note: Drupal's stock robots.txt, unmodified.
+  - name: security.txt
+    url: https://www.keio.ac.jp/.well-known/security.txt
+    status: 404
+    present: false
+  - name: MCP server
+    present: false
+    note: No Model Context Protocol server, manifest or endpoint found on any Keio host.
+  - name: Agent card (/.well-known/agent.json)
+    present: false
+    note: >-
+      Not found, and deliberately not derived. Agent cards are search-only in this pipeline; one is
+      never written on a provider's behalf.
+  - name: OpenAPI published by Keio
+    present: false
+    note: >-
+      Keio publishes no OpenAPI, no AsyncAPI, no apis.json and no WADL. The two contracts in this
+      repository were written by API Evangelist from probes and are marked as such in their
+      x-provenance blocks.
+
+agent_consumable_today:
+  - surface: KOARA OAI-PMH
+    baseURL: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php
+    x-operator: institution
+    why: >-
+      Anonymous, no key, no rate limit encountered, responses self-describe against a published
+      schema, and the full set hierarchy is enumerable in one call. An agent can harvest the entire
+      scholarly record of the university without asking anyone.
+    caveat: >-
+      Protocol errors arrive with HTTP 200 and the failure inside the XML body. An agent branching
+      on status code alone will silently mistake failures for successes.
+  - surface: IIIF Presentation and Image APIs
+    baseURL: https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/
+    x-operator: institution
+    why: >-
+      Anonymous JSON-LD, IIIF-conformant, with an image service that answers arbitrary region, size
+      and rotation requests. An agent can retrieve and reason over 656 folios of the Gutenberg
+      42-line Bible without an account.
+    caveat: >-
+      Archive codes are undocumented. Manifest URLs must be resolved from the site's HTML, which is
+      the one real barrier to autonomous discovery on this surface.
+
+agent_blocked:
+  - surface: keio.figshare.com
+    status: 202
+    detail: >-
+      Returns HTTP 202 with a zero-byte body to a scripted client — a bot interstitial. Recorded as
+      a fact about the platform's edge, not about Keio.
+  - surface: www.linkedin.com/school/keio-university/
+    status: 999
+    detail: LinkedIn's standard bot rejection. The pointer is live for a human; not a dead link.

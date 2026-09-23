@@ -1,0 +1,104 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Every file in this directory is a verbatim capture of a live HTTP response fetched on 2026-09-01
+  with a browser User-Agent. Two files are marked as excerpts and say so in their own contents;
+  nothing else has been edited.
+provider: Keio University
+providerId: keio
+description: >-
+  Captured responses from Keio University's public API surfaces. They exist so that every claim in
+  this repository's contracts, conformance file and coverage block can be checked against the bytes
+  it was derived from, rather than taken on trust.
+examples:
+  - file: keio-koara-oai-identify.xml
+    surface: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=Identify
+    status: 200
+    bytes: 905
+    shows: repositoryName koara, protocolVersion 2.0, granularity, deletedRecord, adminEmail mchq-system-group@keio.jp
+
+  - file: keio-koara-oai-listmetadataformats.xml
+    surface: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=ListMetadataFormats
+    status: 200
+    bytes: 899
+    shows: the two advertised prefixes, junii2 (NII IRDB) and oai_dc
+
+  - file: keio-koara-oai-listsets.xml
+    surface: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=ListSets
+    status: 200
+    bytes: 17458
+    shows: 100 sets naming Keio's faculties, graduate schools and research centres
+
+  - file: keio-koara-oai-listidentifiers.xml
+    surface: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=ListIdentifiers&metadataPrefix=oai_dc
+    status: 200
+    bytes: 21926
+    shows: record header structure, koara-j identifier scheme, datestamps and dual setSpec membership
+
+  - file: keio-koara-oai-error-badverb.xml
+    surface: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    url: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php?verb=Bogus
+    status: 200
+    bytes: 456
+    shows: >-
+      the protocol's in-body error model — HTTP 200 with error code badVerb. Captured deliberately
+      because it is the behaviour most likely to break a naive client.
+
+  - file: keio-iiif-manifest-excerpt.json
+    surface: Keio Media Center IIIF Presentation API
+    x-operator: institution
+    url: https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json
+    status: 200
+    bytes_source: 458789
+    excerpt: true
+    excerpt_detail: sequences[0].canvases truncated from 656 to the first 2 for artifact size; all other keys untouched.
+    shows: >-
+      sc:Manifest for the Gutenberg 42-line Bible, attribution to Keio University Libraries, and the
+      image service pointer into iiif.lib.keio.ac.jp
+
+  - file: keio-iiif-image-info.json
+    surface: Keio Media Center IIIF Image API
+    x-operator: institution
+    url: https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif/info.json
+    status: 200
+    bytes: 876
+    shows: 4500x6200 source folio, seven-level size pyramid, 256px tiles, Image API 2.0 level1 profile
+
+  - file: keio-gakunin-idp-metadata.xml
+    surface: GakuNin / eduGAIN identity provider
+    x-operator: institution
+    url: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+    status: 200
+    bytes_source: 5653150
+    excerpt: true
+    excerpt_detail: >-
+      Only the EntityDescriptor whose entityID is https://gakunin1.keio.ac.jp/idp/shibboleth is
+      retained; X.509 certificate bodies are replaced with a placeholder for size; and the namespace
+      declarations the aggregate carries on its EntitiesDescriptor root (md, ds, mdrpi, mdui,
+      shibmd) are restated on the EntityDescriptor so the excerpt parses standalone. Otherwise
+      verbatim.
+    shows: >-
+      Keio's own Shibboleth IdP entity — scope keio.ac.jp, bilingual display names, discovery hints,
+      Keio ITC technical contact, and SSO endpoints on the keio.ex-tic.com tenant
+
+  - file: keio-okta-openid-configuration.json
+    surface: Keio Okta tenant
+    x-operator: tenant
+    url: https://keio.okta.com/.well-known/openid-configuration
+    status: 200
+    bytes: 2760
+    shows: >-
+      the OpenID Connect discovery document for Keio's Okta org. Included as evidence of the
+      tenancy, not as a Keio-authored contract — the document is Okta's and is identical in shape
+      for every Okta customer.

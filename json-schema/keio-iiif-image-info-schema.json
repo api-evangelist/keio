@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/keio/main/json-schema/keio-iiif-image-info-schema.json",
+  "title": "Keio IIIF Image API 2.0 Image Information",
+  "description": "Structure of the image information document served by Keio University Media Center's IIIF Image API host iiif.lib.keio.ac.jp (IIPImage). Derived field-by-field from a live response, not from the IIIF specification text, so it describes what this deployment actually returns.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif/info.json (HTTP 200, application/json, fetched 2026-09-01); raw response saved to examples/keio-iiif-image-info.json",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["@context", "@id", "protocol", "width", "height", "profile"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "http://iiif.io/api/image/2/context.json",
+      "description": "IIIF Image API 2 JSON-LD context. Observed value is fixed for this deployment."
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical base URI of this image on the Keio image server, e.g. https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif"
+    },
+    "protocol": {
+      "type": "string",
+      "const": "http://iiif.io/api/image"
+    },
+    "width": { "type": "integer", "minimum": 1, "description": "Full width of the source image in pixels. Observed 4500 on a Gutenberg folio." },
+    "height": { "type": "integer", "minimum": 1, "description": "Full height of the source image in pixels. Observed 6200 on a Gutenberg folio." },
+    "sizes": {
+      "type": "array",
+      "description": "Precomputed size pyramid. Seven levels observed, each a halving of the previous.",
+      "items": {
+        "type": "object",
+        "required": ["width", "height"],
+        "properties": {
+          "width": { "type": "integer", "minimum": 1 },
+          "height": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "tiles": {
+      "type": "array",
+      "description": "Tile geometry. Observed: a single 256x256 tile definition with scale factors 1,2,4,8,16,32,64,128.",
+      "items": {
+        "type": "object",
+        "required": ["width", "scaleFactors"],
+        "properties": {
+          "width": { "type": "integer", "const": 256 },
+          "height": { "type": "integer", "const": 256 },
+          "scaleFactors": { "type": "array", "items": { "type": "integer", "minimum": 1 } }
+        }
+      }
+    },
+    "profile": {
+      "type": "array",
+      "description": "Compliance profile. First element is the level URI; the second is an object enumerating the supported formats, qualities and features of this server.",
+      "minItems": 1,
+      "prefixItems": [
+        { "type": "string", "const": "http://iiif.io/api/image/2/level1.json" }
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "formats": { "type": "array", "items": { "type": "string", "enum": ["jpg"] } },
+          "qualities": { "type": "array", "items": { "type": "string", "enum": ["native", "color", "gray"] } },
+          "supports": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["regionByPct", "sizeByForcedWh", "sizeByWh", "sizeAboveFull", "rotationBy90s", "mirroring", "gray"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2026-09-01T17:40:46Z</responseDate>
+<request verb="Identify">https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php</request>
+<Identify>
+<repositoryName>koara</repositoryName>
+<baseURL>https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php</baseURL>
+<protocolVersion>2.0</protocolVersion>
+<deletedRecord>transient</deletedRecord>
+<granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+<earliestDatestamp>1970-01-01T00:00:00Z</earliestDatestamp>
+<adminEmail>mchq-system-group@keio.jp</adminEmail>
+<adminEmail>mchq-system-group@keio.jp</adminEmail>
+<adminEmail>mchq-system-group@keio.jp</adminEmail>
+</Identify>
+</OAI-PMH>

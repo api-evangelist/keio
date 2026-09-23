@@ -1,0 +1,88 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Live anonymous probes of every Keio surface named in apis.yml on 2026-09-01. Each authentication
+  claim below is the observed behaviour of a real request, not a reading of documentation — Keio
+  publishes no developer authentication documentation for any of these surfaces.
+provider: Keio University
+providerId: keio
+description: >-
+  Keio University's authentication posture splits cleanly in two, and the split is the most useful
+  thing to say about it. The surfaces the university operates itself for the public — the KOARA
+  OAI-PMH interface and the Media Center's IIIF endpoints — require no authentication of any kind:
+  no key, no token, no registration, no referer check, no rate-limit header. The surfaces that
+  serve the campus — the K-RIS research information system, the K-LMS learning environment, and
+  every application behind gslbs.keio.jp — are gated behind federated institutional identity, and
+  there is no path by which an unaffiliated developer obtains a credential. There is no developer
+  portal, no key-issuance form and no client-registration endpoint an outsider can use anywhere in
+  the estate.
+
+surfaces:
+  - name: KOARA OAI-PMH Metadata API
+    baseURL: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php
+    x-operator: institution
+    scheme: none
+    detail: >-
+      Anonymous. A bare GET with a verb returns a complete OAI-PMH response. No Authorization
+      header, cookie, key or referer is required or honoured. robots.txt at the host is
+      `User-agent: * / Allow: /`.
+    probed_status: 200
+
+  - name: Keio Media Center IIIF Presentation and Image APIs
+    baseURL: https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/
+    x-operator: institution
+    scheme: none
+    detail: >-
+      Anonymous. Manifests and image tiles are served without authentication or a IIIF Authentication
+      API service block. No `service` of `@type: AuthCookieService1` appears in the manifest, so
+      there is no degraded-access or login-required tier — the collections are open.
+    probed_status: 200
+
+  - name: Keio Okta tenant (keio.okta.com)
+    baseURL: https://keio.okta.com
+    x-operator: tenant
+    scheme: oauth2 / oidc
+    detail: >-
+      OpenID Connect discovery is anonymously readable at
+      https://keio.okta.com/.well-known/openid-configuration and advertises authorization, token,
+      userinfo, jwks and a dynamic client registration endpoint. In practice a client_id exists only
+      if Keio IT creates one; the registration endpoint is Okta's standard org endpoint and is not
+      open to unaffiliated callers. Readable, not consumable.
+    probed_status: 200
+    flows_advertised:
+      - code
+      - id_token
+      - code id_token
+      - code token
+      - id_token token
+      - code id_token token
+
+  - name: GakuNin / eduGAIN SAML identity provider
+    entityID: https://gakunin1.keio.ac.jp/idp/shibboleth
+    x-operator: institution
+    scheme: saml2
+    detail: >-
+      SAML 2.0 web browser SSO, transient NameID only. Access is granted to service providers
+      registered in GakuNin or reachable through eduGAIN, not to individual developers. Requires an
+      institutional or federation relationship, never an API key.
+    probed_status: 200
+
+  - name: K-RIS (Keio Research Information System)
+    baseURL: https://k-ris.keio.ac.jp/
+    x-operator: tenant
+    scheme: session
+    detail: >-
+      The public researcher-profile portal renders anonymously, but the Pure web service path
+      (/ws/api and /ws/api/openapi.json) returns 404 — the machine-readable interface is not exposed
+      on this deployment. No API credential is obtainable.
+    probed_status: 404
+
+not_found:
+  - what: Developer portal or API key issuance
+    detail: >-
+      No api.keio.ac.jp (NXDOMAIN), no data.keio.ac.jp (NXDOMAIN), no developer portal, no key
+      request form, and no API terms document anywhere on the estate.
+  - what: security.txt
+    detail: https://www.keio.ac.jp/.well-known/security.txt returns a real HTTP 404.

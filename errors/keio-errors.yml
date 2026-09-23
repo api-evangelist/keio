@@ -1,0 +1,70 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Deliberate malformed and negative requests issued against Keio's institution-operated surfaces on
+  2026-09-01. Every error shape below was provoked and observed; none is inferred from a
+  specification.
+provider: Keio University
+providerId: keio
+description: >-
+  Error handling across Keio's two public, institution-operated API surfaces, established by
+  probing them with bad input rather than by reading documentation that does not exist. The single
+  most important behaviour for a client to know is that KOARA's OAI-PMH interface returns HTTP 200
+  for protocol failures and puts the failure in the XML body — a client that branches on status
+  code alone will treat every malformed request as a success.
+
+surfaces:
+  - name: KOARA OAI-PMH Metadata API
+    baseURL: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php
+    x-operator: institution
+    error_model: OAI-PMH 2.0 in-body error element
+    transport_status_on_error: 200
+    detail: >-
+      Errors are returned as `<error code="…">message</error>` inside a well-formed OAI-PMH
+      envelope, with the responseDate and the echoed request preserved. The HTTP status line stays
+      200. This is conformant OAI-PMH behaviour and is stated here because it surprises clients
+      built for REST.
+    observed:
+      - code: badVerb
+        http_status: 200
+        request: '?verb=Bogus'
+        body_message: illegal verb
+        artifact: examples/keio-koara-oai-error-badverb.xml
+    specified_but_not_provoked:
+      - badArgument
+      - cannotDisseminateFormat
+      - idDoesNotExist
+      - noRecordsMatch
+      - noMetadataFormats
+      - noSetHierarchy
+      - badResumptionToken
+    specified_but_not_provoked_note: >-
+      These are the remaining OAI-PMH 2.0 error codes. They are listed as protocol-defined, NOT as
+      observed on this deployment — only badVerb was actually provoked and captured. The distinction
+      is deliberate: asserting an unprobed error shape as this repository's behaviour would be
+      fabrication.
+
+  - name: Keio Media Center IIIF APIs
+    baseURL: https://dcollections.lib.keio.ac.jp/
+    x-operator: institution
+    error_model: HTTP status only
+    detail: >-
+      An unknown archive code returns a plain HTTP 404 with no structured error body. Eight guessed
+      archive codes (FKZ, INC, KAN, GYO, NEH, UKY, ANA, ICP) each returned 404 against
+      /sites/default/files/iiif/{code}/manifest.json, confirming the behaviour. There is no
+      problem+json, no error object and no machine-readable failure vocabulary.
+    observed:
+      - http_status: 404
+        request: /sites/default/files/iiif/FKZ/manifest.json
+        body: none (Drupal HTML 404 page)
+
+  - name: Drupal application layer (dcollections, objecthub)
+    x-operator: institution
+    detail: >-
+      Both digital-collection sites are Drupal 10. Unknown paths return a genuine HTTP 404 with an
+      HTML body — a correct hard 404, not a soft-404 that answers 200 for everything. Probed:
+      /jsonapi, /oai and /sitemap.xml on objecthub.keio.ac.jp all returned 404, and /jsonapi on
+      dcollections.lib.keio.ac.jp returned 404. Recorded because a site that 404s honestly is
+      measurably different from one that does not, and the difference matters to a harvester.

@@ -64,58 +64,102 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Keio University is a private research university in Tokyo, Japan (founded 1858), ranked #188 in the QS World University Rankings 2025. Its confirmed public, machine-readable footprint centers on KOARA, the institutional repository, which serves a live OAI-PMH 2.0 metadata endpoint. Most other campus systems are account-gated and publish no open developer API documentation.
+Keio University (慶應義塾大学) is a private research university in Tokyo, Japan, founded by Fukuzawa Yukichi in 1858 and the oldest institution of modern higher education in the country. Its programmable footprint is small, entirely non-commercial, and — unusually for this cohort — genuinely its own rather than a vendor's running under its name.
 
 - APIs.json: https://raw.githubusercontent.com/api-evangelist/keio/refs/heads/main/apis.yml
 - Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=keio-api-evangelist&utm_content=repo
 
 ## Type
 
+- university / Private Research University
 - Index
 - Consumer
 - 3rd-Party
 
 ## Tags
 
-Education, Higher Education, University, Research, Institutional Repository, OAI-PMH, Open Access, Japan
+Education, Higher Education, University, Japan, Research, Institutional Repository, Research Repository, Identity Federation, Digital Collections, IIIF, OAI-PMH, Open Access, Cultural Heritage
 
-## APIs
+## Surfaces, by who operates them
 
-- **KOARA OAI-PMH Metadata API** — Metadata harvesting for Keio University's institutional repository (XooNips platform, OAI-PMH 2.0).
-  - Docs: https://koara.lib.keio.ac.jp/doc/KOARA_About_en.htm
+Every surface below carries an `x-operator` in `apis.yml`. For a university that distinction is the
+whole point: almost every machine-readable thing that appears under an institution's name is a
+vendor's contract, and crediting the institution for it is the error this profile exists to avoid.
+
+### Institution-operated — Keio's own hosts, Keio's own engineering
+
+- **KOARA OAI-PMH Metadata API** — the institutional repository's OAI-PMH 2.0 harvesting interface, live and anonymous. All six verbs probed; 100 faculty and research-centre sets; `oai_dc` and NII `junii2`.
   - Base URL: https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php
+  - Contract: [openapi/keio-koara-oai-pmh-openapi.yml](openapi/keio-koara-oai-pmh-openapi.yml)
+- **Keio Media Center Digital Collections IIIF API** — IIIF Presentation 2.1 manifests and IIIF Image 2.0 Level 1 tiles for the university's digitised rare books, including all 656 folios of its Gutenberg 42-line Bible. The largest genuinely institution-operated machine-readable surface Keio has.
+  - Manifests: https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/
+  - Images: https://iiif.lib.keio.ac.jp/
+  - Contract: [openapi/keio-iiif-openapi.yml](openapi/keio-iiif-openapi.yml)
 
-## Plans
+### Federation — shared by definition, and the IdP inside it is Keio's
 
-- [plans/keio-plans-pricing.yml](plans/keio-plans-pricing.yml)
+- **Keio University Identity Provider** — entityID `https://gakunin1.keio.ac.jp/idp/shibboleth`, registered in GakuNin since 2014-02-24 and republished into eduGAIN as entity 853677.
+  - Detail: [identity-federation/keio-identity-federation.yml](identity-federation/keio-identity-federation.yml)
 
-## Rate Limits
+### Tenant — Keio's data and users, a vendor's contract
 
-- [rate-limits/keio-rate-limits.yml](rate-limits/keio-rate-limits.yml)
+- **K-RIS** (k-ris.keio.ac.jp) — Elsevier Pure. Pure's contract is deliberately not saved here; on this deployment `/ws/api` returns 404 anyway.
+- **Keio Okta tenant** (keio.okta.com) — OIDC discovery is publicly readable, client registration is not reachable by an outsider.
+- **Keio Figshare** (keio.figshare.com) — evidenced through DataCite client `keio.figshare`, not through the host, which bot-interstitials scripted clients.
 
-## FinOps
+### Registry — memberships, recorded as facts about Keio, never as Keio's contracts
 
-- [finops/keio-finops.yml](finops/keio-finops.yml)
+- **DataCite** — provider `keio`, prefix 10.71825, FSCO consortium, joined 2025-03-11, 5 DOIs minted.
+- **Crossref** — member 1082 (Keio Journal of Medicine, prefix 10.2302, 1,743 DOIs) and member 1443 (Department of Anatomy, prefix 10.2535).
+- **ROR** — https://ror.org/02kn6nx58.
+
+## Artifacts
+
+- OpenAPI: [KOARA OAI-PMH](openapi/keio-koara-oai-pmh-openapi.yml) · [IIIF](openapi/keio-iiif-openapi.yml) (pristine copies in [openapi/_original/](openapi/_original/))
+- JSON Schema: [IIIF manifest](json-schema/keio-iiif-manifest-schema.json) · [IIIF image info](json-schema/keio-iiif-image-info-schema.json)
+- [Examples](examples/index.yml) — nine verbatim captured responses
+- [Conformance](conformance/keio-conformance.yml) · [Identity federation](identity-federation/keio-identity-federation.yml)
+- [Authentication](authentication/keio-authentication.yml) · [Scopes](scopes/keio-scopes.yml) · [Errors](errors/keio-errors.yml)
+- [Rules](rules/keio-rules.yml) · [Vocabulary](vocabulary/keio-vocabulary.yml) · [Lifecycle](lifecycle/keio-lifecycle.yml) · [Agentic access](agentic-access/keio-agentic-access.yml)
+- [JSON-LD](json-ld/keio-context.jsonld) · [Plans](plans/keio-plans-pricing.yml) · [Rate limits](rate-limits/keio-rate-limits.yml) · [FinOps](finops/keio-finops.yml)
+
+## Domain-standard conformance (Kin Score `education` regime)
+
+Confirmed from live responses, never from a prose claim: **oai-pmh** 2.0 (institution),
+**shibboleth** (institution), **saml** 2.0 (institution), **datacite** (registry), **crossref**
+(registry). **orcid** is recorded as *partial* — 4,503 affiliation records exist in the public
+registry, but no Keio-side integration or membership was found, and inflating that to confirmed
+would credit the institution for its researchers' filing behaviour. **scim**, **lti**, **oneroster**,
+**ed-fi**, **caliper** and **qti** were probed and not found, and are listed as such rather than
+omitted.
 
 ## Timestamps
 
 - Created: 2026-06-03
-- Modified: 2026-06-03
+- Modified: 2026-09-01
 
 ## Common Properties
 
 - Website: https://www.keio.ac.jp/en/
-- Library Website: https://www.lib.keio.ac.jp/en/
-- Authentication (federation): https://www.gakunin.jp/en
-- Twitter: https://twitter.com/Keio_PR_eng
-- LinkedIn: https://www.linkedin.com/school/keio-university/
+- Library: https://www.lib.keio.ac.jp/en/
+- Research repository: https://koara.lib.keio.ac.jp/
+- Digital collections: https://dcollections.lib.keio.ac.jp/en
+- AI policy: https://www.st.itc.keio.ac.jp/en/software_ai_guideline.html
+- Privacy policy: https://www.keio.ac.jp/en/privacy-policy/
+- News: https://www.keio.ac.jp/en/news/
+- X: https://x.com/Keio_univ_PR
+- LinkedIn: https://www.linkedin.com/school/keio-university
+- Instagram: https://www.instagram.com/keio_university
+- YouTube: https://www.youtube.com/user/keiouniversity
 
 ## Notes
 
-- KOARA's OAI-PMH endpoint was verified live (HTTP 200, valid Identify response, protocolVersion 2.0).
-- No public REST API or developer portal was found. keio.jp SSO (Google Workspace), Canvas K-LMS, K-RIS, KOSMOS discovery, and the Keio Object Hub are account-gated with no published open API documentation.
-- Identity is federated via GakuNin (Japanese academic SAML/Shibboleth federation, participating in eduGAIN).
-- The `github.com/keio` account belongs to an unrelated individual developer, not the institution; only research-lab GitHub orgs exist. No endpoints were fabricated.
+- Every contract in this repository was written by API Evangelist from live probes on 2026-09-01 and is marked `method: derived` in its own `x-provenance` block. **Keio publishes no OpenAPI, AsyncAPI, apis.json or WADL anywhere in its estate.**
+- What Keio does not have was probed, not assumed: `api.keio.ac.jp` and `data.keio.ac.jp` do not resolve; there is no developer portal, open-data portal, public course-catalog API, research-computing service catalog, changelog, status page, `llms.txt`, MCP server, `robots.txt` on the main site, or `security.txt`.
+- The `github.com/keio` account belongs to an unrelated individual. The `KeioUniversity` and `keio-sfc` GitHub organizations both exist but hold **zero public repositories**, so neither is claimed as a pointer.
+- The previous `https://twitter.com/Keio_PR_eng` pointer returned HTTP 404 and was removed; the replacement handle was read off Keio's own English homepage.
+- The entityID host `gakunin1.keio.ac.jp` presents an **expired TLS certificate**. It does not break federation — a SAML entityID is an identifier, not a fetch target — but it is recorded as an open defect.
+- No endpoints were fabricated. Where a value could not be confirmed (the IIIF archive codes for collections other than Gutenberg), it is left unenumerated rather than guessed.
 
 ## Maintainers
 

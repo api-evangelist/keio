@@ -29,7 +29,32 @@
     "identifier": "dc:identifier",
     "title": "dc:title",
     "creator": "dc:creator",
-    "datestamp": "oai:datestamp"
+    "datestamp": "oai:datestamp",
+    "iiif": "http://iiif.io/api/presentation/2#",
+    "saml": "urn:oasis:names:tc:SAML:2.0:metadata#",
+    "digitalCollection": {
+      "@id": "keio:digitalCollection",
+      "@type": "@id"
+    },
+    "iiifManifest": {
+      "@id": "keio:iiifManifest",
+      "@type": "@id"
+    },
+    "iiifImageService": {
+      "@id": "keio:iiifImageService",
+      "@type": "@id"
+    },
+    "identityProvider": {
+      "@id": "keio:identityProvider",
+      "@type": "@id"
+    },
+    "entityID": "keio:entityID",
+    "identifier_registry": {
+      "@id": "keio:identifierRegistry",
+      "@type": "@id"
+    },
+    "doiPrefix": "keio:doiPrefix",
+    "operator": "keio:operator"
   },
   "@type": "CollegeOrUniversity",
   "@id": "https://www.keio.ac.jp/en/",
@@ -41,8 +66,12 @@
     "name": "Tokyo, Japan"
   },
   "sameAs": [
-    "https://twitter.com/Keio_PR_eng",
-    "https://www.linkedin.com/school/keio-university/"
+    "https://ror.org/02kn6nx58",
+    "https://www.wikidata.org/wiki/Q815432",
+    "https://x.com/Keio_univ_PR",
+    "https://www.linkedin.com/school/keio-university",
+    "https://www.instagram.com/keio_university",
+    "https://www.youtube.com/user/keiouniversity"
   ],
   "repository": {
     "@type": "DigitalDocument",
@@ -50,6 +79,79 @@
     "name": "KOARA (KeiO Associated Repository of Academic resources)",
     "url": "https://koara.lib.keio.ac.jp/",
     "description": "Keio University institutional repository exposing a public OAI-PMH 2.0 metadata-harvesting endpoint.",
-    "metadataApi": "https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php"
+    "metadataApi": "https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php",
+    "operator": "institution"
+  },
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "ROR",
+      "value": "https://ror.org/02kn6nx58"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "GRID",
+      "value": "grid.26091.3c"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "ISNI",
+      "value": "0000 0004 1936 9959"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "Wikidata",
+      "value": "Q815432"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "FundRef",
+      "value": "501100001697"
+    }
+  ],
+  "digitalCollection": {
+    "@type": "Collection",
+    "@id": "https://dcollections.lib.keio.ac.jp/en",
+    "name": "Keio University Media Center Digital Collections",
+    "url": "https://dcollections.lib.keio.ac.jp/en",
+    "description": "Digitised rare books and special collections of Keio University Libraries, served as IIIF Presentation 2.1 manifests and IIIF Image 2.0 Level 1 tiles on Keio's own hosts.",
+    "operator": "institution",
+    "iiifManifest": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json",
+    "iiifImageService": "https://iiif.lib.keio.ac.jp/iipsrv/"
+  },
+  "identityProvider": {
+    "@type": "WebAPI",
+    "name": "Keio University Identity Provider (GakuNin / eduGAIN)",
+    "entityID": "https://gakunin1.keio.ac.jp/idp/shibboleth",
+    "url": "https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml",
+    "operator": "institution"
+  },
+  "identifier_registry": [
+    {
+      "@type": "Organization",
+      "name": "DataCite",
+      "identifier": "keio",
+      "doiPrefix": "10.71825",
+      "operator": "registry"
+    },
+    {
+      "@type": "Organization",
+      "name": "Crossref",
+      "identifier": "1082",
+      "doiPrefix": "10.2302",
+      "operator": "registry"
+    },
+    {
+      "@type": "Organization",
+      "name": "Crossref",
+      "identifier": "1443",
+      "doiPrefix": "10.2535",
+      "operator": "registry"
+    }
+  ],
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "Rebuilt from live probes on 2026-09-01 recorded in apis.yml x-coverage.evidence. The previous sameAs pointed at https://twitter.com/Keio_PR_eng, which returns HTTP 404; it was replaced with the handle published on Keio's own English homepage."
   }
 }

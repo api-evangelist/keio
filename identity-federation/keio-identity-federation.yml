@@ -1,0 +1,153 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml (HTTP 200, 5,653,150 bytes, fetched
+  2026-09-01) — the signed aggregate metadata of GakuNin, the Japanese academic access-management
+  federation operated by the National Institute of Informatics. Cross-checked against the eduGAIN
+  entity register at https://technical.edugain.org/api.php?action=list_entities&format=json
+  (HTTP 200), in which Keio's identity provider appears once, as entity 853677, registered by
+  https://www.gakunin.jp. The EntityDescriptor for Keio is saved verbatim (certificates elided) to
+  examples/keio-gakunin-idp-metadata.xml.
+provider: Keio University
+providerId: keio
+description: >-
+  Identity federation is the surface class a university operates by definition and is almost never
+  catalogued for, and for Keio it is the strongest machine-readable artifact carrying the
+  institution's own name. Keio University is a registered identity provider in GakuNin, the
+  Japanese academic SAML federation NII operates, and through GakuNin's interfederation agreement
+  its entity is republished in eduGAIN — so a service provider anywhere in the global research and
+  education federation can discover and trust Keio's IdP without a bilateral agreement.
+
+
+  The nuance worth stating plainly, and the reason this file separates the entity from its
+  endpoints: the entityID and the asserted scope are Keio's, but the SAML endpoints the metadata
+  advertises resolve to keio.ex-tic.com — a per-institution tenant on Extic, a Japanese identity
+  SaaS platform. The identity, the namespace, the user population and the operational contact
+  (gakunin@itc.keio.ac.jp, Keio Information Technology Center) are the institution's; the SSO
+  service is running on rented software. Separately, gslbs.keio.jp — a Keio application host —
+  redirects to a SAML request against keio.okta.com, so Keio also runs an Okta tenant whose OpenID
+  Connect discovery document is publicly readable. Neither of those is a reason to strip the
+  federation record; both are recorded honestly as tenancies alongside it.
+
+entities:
+  - name: Keio University — GakuNin / eduGAIN identity provider
+    entityID: https://gakunin1.keio.ac.jp/idp/shibboleth
+    x-operator: institution
+    x-operator-evidence: >-
+      The entityID is under Keio's own registrable domain keio.ac.jp. The metadata's Organization
+      block names Keio University / 慶應義塾大学 with OrganizationURL http://www.keio.ac.jp, the
+      technical contact is Keio University Information Technology Center
+      (gakunin@itc.keio.ac.jp), and the asserted shibmd:Scope is keio.ac.jp. Nothing in the entity
+      is a vendor's.
+    registered_in:
+      - federation: GakuNin
+        operator: National Institute of Informatics (NII)
+        registrationAuthority: https://www.gakunin.jp
+        registrationInstant: '2014-02-24T10:22:10Z'
+        registration_policy: https://www.gakunin.jp/en/join
+        metadata_url: https://metadata.gakunin.nii.ac.jp/gakunin-metadata.xml
+        metadata_status: 200
+        entity_document_id: PI0119JP
+      - federation: eduGAIN
+        operator: GÉANT
+        via: GakuNin interfederation
+        entity_id_in_register: '853677'
+        register_url: https://technical.edugain.org/entities
+        register_status: 200
+        role: IDPSSODescriptor
+        eccs_status: '4'
+        sirtfi_status: '0'
+        note: >-
+          Sirtfi (the REFEDS Security Incident Response Trust Framework) is NOT asserted on this
+          entity. Recorded because its absence is a real, checkable property of the deployment, not
+          because it is a defect on Keio's part specifically — it is unasserted on much of GakuNin.
+    protocols:
+      - urn:oasis:names:tc:SAML:2.0:protocol
+    roles:
+      - IDPSSODescriptor
+    scope:
+      value: keio.ac.jp
+      regexp: false
+    display_names:
+      en: Keio University
+      ja: 慶應義塾大学
+    discovery_hints:
+      domain_hints:
+        - keio.ac.jp
+        - keio.jp
+      ip_hints:
+        - 131.113.0.0/16
+        - 133.27.0.0/16
+      geolocation: 'geo:35.649031,139.742997'
+      keywords:
+        - 'category:location:kanto'
+        - 'category:organizationType:university'
+    nameid_formats:
+      - urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+    key_descriptors: 2
+    endpoints:
+      - service: SingleSignOnService
+        binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+        location: https://keio.ex-tic.com/auth/gakunin/saml2/assertions
+      - service: SingleSignOnService
+        binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+        location: https://keio.ex-tic.com/auth/gakunin/saml2/assertions
+    endpoint_operator: tenant
+    endpoint_operator_evidence: >-
+      Both SSO bindings point at keio.ex-tic.com — a Keio-specific tenant subdomain on the Extic
+      identity platform (ex-tic.com), returning HTTP 200. The entityID namespace is Keio's; the
+      service answering the assertion request is Extic's software on a Keio tenant. Recorded as a
+      tenancy, not deducted from the institution's ownership of the entity.
+    contacts:
+      - type: technical
+        organization: Keio University Information Technology Center
+        email: gakunin@itc.keio.ac.jp
+    defects:
+      - id: idp-host-tls-expired
+        severity: informational
+        detail: >-
+          The entityID host gakunin1.keio.ac.jp presents an expired TLS certificate (curl exit 60,
+          "certificate has expired", probed 2026-09-01). A SAML entityID is an identifier and is
+          not required to dereference, so this does not break federation — but it does mean the
+          host named in Keio's federation identity is not currently serving a valid certificate.
+          Reported as observed.
+        status_code: 0
+
+  - name: Keio University Okta tenant — OpenID Connect discovery
+    issuer: https://keio.okta.com
+    x-operator: tenant
+    x-operator-evidence: >-
+      keio.okta.com is a Keio-specific tenant on Okta's identity platform. It was found because
+      https://gslbs.keio.jp/ (a Keio application host, HTTP 200) redirects into a SAMLRequest
+      against https://keio.okta.com/app/keio__52/.../sso/saml. The tenant, the users and the
+      applications are Keio's; the identity service, its contract and its engineering are Okta's,
+      and the discovery document is the one Okta publishes for every org.
+    discovery_url: https://keio.okta.com/.well-known/openid-configuration
+    discovery_status: 200
+    authorization_server_discovery_url: https://keio.okta.com/oauth2/default/.well-known/openid-configuration
+    authorization_server_discovery_status: 200
+    endpoints:
+      authorization_endpoint: https://keio.okta.com/oauth2/v1/authorize
+      token_endpoint: https://keio.okta.com/oauth2/v1/token
+      userinfo_endpoint: https://keio.okta.com/oauth2/v1/userinfo
+      jwks_uri: https://keio.okta.com/oauth2/v1/keys
+      registration_endpoint: https://keio.okta.com/oauth2/v1/clients
+    artifact: examples/keio-okta-openid-configuration.json
+    note: >-
+      The discovery document is anonymously readable, but a client_id exists only if Keio's IT
+      staff create one. There is no public or usable dynamic registration for an unaffiliated
+      caller, so this is a readable surface, not a consumable one.
+
+not_found:
+  - what: A Keio-hosted Shibboleth IdP metadata document served directly from keio.ac.jp
+    detail: >-
+      Keio's federation metadata is published through GakuNin's aggregate, not from a per-institution
+      well-known metadata URL on Keio's own host. No standalone /idp/shibboleth metadata document
+      was retrievable — the entityID host's certificate has expired. This is normal for GakuNin
+      members and is not recorded as a Keio failing.
+  - what: A SCIM 2.0 provisioning endpoint
+    detail: >-
+      No publicly readable SCIM ServiceProviderConfig was found on any probed Keio host. `scim` is
+      one of the education regime's named standards and is deliberately left unclaimed.

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2026-09-01T17:40:48Z</responseDate>
+<request verb="ListSets">https://koara.lib.keio.ac.jp/xoonips/modules/xoonips/oai.php</request>
+<ListSets>
+    <set>
+        <setSpec>index3</setSpec>
+        <setName>/Public</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8</setSpec>
+        <setName>/Public/商学部</setName>
+    </set>
+    <set>
+        <setSpec>index3:index9</setSpec>
+        <setName>/Public/法務研究科</setName>
+    </set>
+    <set>
+        <setSpec>index3:index10</setSpec>
+        <setName>/Public/メディア・コミュニケーション研究所</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11</setSpec>
+        <setName>/Public/産業研究所</setName>
+    </set>
+    <set>
+        <setSpec>index3:index12</setSpec>
+        <setName>/Public/福澤研究センター</setName>
+    </set>
+    <set>
+        <setSpec>index3:index13</setSpec>
+        <setName>/Public/アート・センター</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14</setSpec>
+        <setName>/Public/日吉紀要</setName>
+    </set>
+    <set>
+        <setSpec>index3:index15</setSpec>
+        <setName>/Public/21世紀COEプログラム</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index16</setSpec>
+        <setName>/Public/文学部/[仏文学] Cahiers d&#039;études françaises Université Keio</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18</setSpec>
+        <setName>/Public/商学部/三田商学研究</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index19</setSpec>
+        <setName>/Public/商学部/Keio business review</setName>
+    </set>
+    <set>
+        <setSpec>index3:index9:index20</setSpec>
+        <setName>/Public/法務研究科/慶應法学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index10:index21</setSpec>
+        <setName>/Public/メディア・コミュニケーション研究所/メディア・コミュニケーション</setName>
+    </set>
+    <set>
+        <setSpec>index3:index10:index22</setSpec>
+        <setName>/Public/メディア・コミュニケーション研究所/Keio communication review</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index23</setSpec>
+        <setName>/Public/産業研究所/KEO discussion paper</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index24</setSpec>
+        <setName>/Public/産業研究所/KEO discussion paper. G</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index25</setSpec>
+        <setName>/Public/産業研究所/KEO occasional paper (英文)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index26</setSpec>
+        <setName>/Public/産業研究所/KEO occasional paper (和文) </setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index27</setSpec>
+        <setName>/Public/産業研究所/KEO review</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index28</setSpec>
+        <setName>/Public/産業研究所/研究労働法・経済法. 別冊</setName>
+    </set>
+    <set>
+        <setSpec>index3:index11:index29</setSpec>
+        <setName>/Public/産業研究所/組織行動研究</setName>
+    </set>
+    <set>
+        <setSpec>index3:index12:index30</setSpec>
+        <setName>/Public/福澤研究センター/近代日本研究</setName>
+    </set>
+    <set>
+        <setSpec>index3:index13:index31</setSpec>
+        <setName>/Public/アート・センター/Booklet / Research Center for the Arts and Arts Administration Keio University</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index32</setSpec>
+        <setName>/Public/日吉紀要/英語英米文学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index33</setSpec>
+        <setName>/Public/日吉紀要/ドイツ語学・文学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index34</setSpec>
+        <setName>/Public/日吉紀要/フランス語フランス文学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index35</setSpec>
+        <setName>/Public/日吉紀要/人文科学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index36</setSpec>
+        <setName>/Public/日吉紀要/社会科学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index37</setSpec>
+        <setName>/Public/日吉紀要/自然科学</setName>
+    </set>
+    <set>
+        <setSpec>index3:index14:index38</setSpec>
+        <setName>/Public/日吉紀要/言語・文化・コミュニケーション</setName>
+    </set>
+    <set>
+        <setSpec>index3:index15:index39</setSpec>
+        <setName>/Public/21世紀COEプログラム/心の解明に向けての統合的方法論構築</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index16:index40</setSpec>
+        <setName>/Public/文学部/[仏文学] Cahiers d&#039;études françaises Université Keio/10 (2005)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index16:index41</setSpec>
+        <setName>/Public/文学部/[仏文学] Cahiers d&#039;études françaises Université Keio/9 (2004)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index16:index42</setSpec>
+        <setName>/Public/文学部/[仏文学] Cahiers d&#039;études françaises Université Keio/8 (2003)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index43</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/50 (2003)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index44</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/49 (2003)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index45</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/48 (2002)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index46</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/47 (2002)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index47</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/46 (2001)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index48</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/45 (2001)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index49</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/44 (2000)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index50</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/43 (2000)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index51</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/42 (1999)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index52</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/41 (1999)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index53</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/40 (1998)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index54</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/39 (1998)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index16520:index17:index55</setSpec>
+        <setName>/Public/文学部/[図書館・情報学] Library and information science/38 (1997)</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10363:index56</setSpec>
+        <setName>/Public/商学部/三田商学研究/49 (2006)/49(2) 200606</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10363:index57</setSpec>
+        <setName>/Public/商学部/三田商学研究/49 (2006)/49(1) 200604</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index58</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(6) 200602</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index59</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(5) 200512</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index60</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(4) 200510</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index61</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(3) 200508</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index62</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(2) 200506</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10364:index63</setSpec>
+        <setName>/Public/商学部/三田商学研究/48 (2005)/48(1) 200504</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index64</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(6) 200502</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index65</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(5) 200412</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index66</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(4) 200410</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index67</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(3) 200408</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index68</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(2) 200406</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10365:index69</setSpec>
+        <setName>/Public/商学部/三田商学研究/47 (2004)/47(1) 200404</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index70</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(6) 200402</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index71</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(5) 200312</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index72</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(4) 200310</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index73</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(3) 200308</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index74</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(2) 200306</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10366:index75</setSpec>
+        <setName>/Public/商学部/三田商学研究/46 (2003)/46(1) 200304</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index76</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(6) 200302</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index77</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(5) 200212</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index78</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(4) 200210</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index79</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(3) 200208</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index80</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(2) 200206</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10367:index81</setSpec>
+        <setName>/Public/商学部/三田商学研究/45 (2002)/45(1) 200204</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index82</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(6) 200202</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index83</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(5) 200112</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index84</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(4) 200110</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index85</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(3) 200108</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index86</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(2) 200106</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10368:index87</setSpec>
+        <setName>/Public/商学部/三田商学研究/44 (2001)/44(1) 200104</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index88</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(特別号) 200011</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index89</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(6) 200102</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index90</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(5) 200012</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index91</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(4) 200010</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index92</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(3) 200008</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index93</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(2) 200006</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10369:index94</setSpec>
+        <setName>/Public/商学部/三田商学研究/43 (2000)/43(1) 200004</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index95</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(6) 200002</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index96</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(5) 199912</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index97</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(4) 199910</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index98</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(3) 199908</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index99</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(2) 199906</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10370:index100</setSpec>
+        <setName>/Public/商学部/三田商学研究/42 (1999)/42(1) 199904</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index101</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(6) 199902</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index102</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(5) 199812</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index103</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(4) 199810</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index104</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(3) 199808</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index105</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(2) 199806</setName>
+    </set>
+    <set>
+        <setSpec>index3:index8:index18:index10371:index106</setSpec>
+        <setName>/Public/商学部/三田商学研究/41 (1998)/41(1) 199804</setName>
+    </set>
+<resumptionToken expirationDate="2026-09-01T17:57:28Z" completeListSize="6258" cursor="0">ems92hkr864l9fuibjhl765mkj6a970e2009b56</resumptionToken>
+</ListSets>
+</OAI-PMH>

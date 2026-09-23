@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/keio/main/json-schema/keio-iiif-manifest-schema.json",
+  "title": "Keio IIIF Presentation API 2.1 Manifest",
+  "description": "Structure of the IIIF Presentation API 2.1 manifests served by Keio University Media Center at dcollections.lib.keio.ac.jp. Derived field-by-field from a live response rather than from the IIIF specification text, so it constrains only what this deployment was observed to emit.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json (HTTP 200, application/json, 458,789 bytes, 656 canvases, fetched 2026-09-01); excerpt saved to examples/keio-iiif-manifest-excerpt.json",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["@context", "@id", "@type", "label", "sequences"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "http://iiif.io/api/presentation/2/context.json"
+    },
+    "@id": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical manifest URI, always under https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/{archive}/manifest.json"
+    },
+    "@type": { "type": "string", "const": "sc:Manifest" },
+    "label": {
+      "type": "string",
+      "description": "Title of the digitised item or collection. Japanese labels are used, e.g. グーテンベルク42行聖書."
+    },
+    "attribution": {
+      "type": "string",
+      "description": "Rights attribution. Observed value is the bilingual '慶應義塾大学メディアセンター\\nKeio University Libraries'."
+    },
+    "license": {
+      "type": "string",
+      "description": "Terms-of-use statement. This deployment emits an HTML anchor string rather than a bare URI — a deviation from the IIIF recommendation that a license be a URI, recorded as observed."
+    },
+    "sequences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["@type", "canvases"],
+        "properties": {
+          "@id": { "type": "string" },
+          "@type": { "type": "string", "const": "sc:Sequence" },
+          "canvases": {
+            "type": "array",
+            "description": "One canvas per digitised page or view. 656 observed for the Gutenberg 42-line Bible.",
+            "items": { "$ref": "#/$defs/Canvas" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Canvas": {
+      "type": "object",
+      "required": ["@id", "@type", "images"],
+      "properties": {
+        "@id": { "type": "string", "format": "uri" },
+        "@type": { "type": "string", "const": "sc:Canvas" },
+        "label": { "type": "string" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "images": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/Annotation" }
+        }
+      }
+    },
+    "Annotation": {
+      "type": "object",
+      "required": ["@type", "motivation", "resource"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": { "type": "string", "const": "oa:Annotation" },
+        "motivation": { "type": "string", "const": "sc:painting" },
+        "on": { "type": "string", "format": "uri" },
+        "resource": { "$ref": "#/$defs/ImageResource" }
+      }
+    },
+    "ImageResource": {
+      "type": "object",
+      "required": ["@id", "service"],
+      "properties": {
+        "@id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Direct image URI, e.g. https://iiif.lib.keio.ac.jp/iiif/GTB/img1"
+        },
+        "@type": { "type": "string", "const": "dctypes:Image" },
+        "format": { "type": "string" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "service": {
+          "type": "object",
+          "description": "Link to the IIIF Image API service for this image, on Keio's own image host.",
+          "required": ["@id", "@context", "profile"],
+          "properties": {
+            "@id": { "type": "string", "format": "uri" },
+            "@context": { "type": "string", "const": "http://iiif.io/api/image/2/context.json" },
+            "profile": { "type": "string", "const": "http://iiif.io/api/image/2/level1.json" }
+          }
+        }
+      }
+    }
+  }
+}

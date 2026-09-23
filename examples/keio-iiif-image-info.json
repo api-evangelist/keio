@@ -1,0 +1,25 @@
+{
+  "@context" : "http://iiif.io/api/image/2/context.json",
+  "@id" : "https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif",
+  "protocol" : "http://iiif.io/api/image",
+  "width" : 4500,
+  "height" : 6200,
+  "sizes" : [
+     { "width" : 35, "height" : 48 },
+     { "width" : 70, "height" : 96 },
+     { "width" : 140, "height" : 193 },
+     { "width" : 281, "height" : 387 },
+     { "width" : 562, "height" : 775 },
+     { "width" : 1125, "height" : 1550 },
+     { "width" : 2250, "height" : 3100 }
+  ],
+  "tiles" : [
+     { "width" : 256, "height" : 256, "scaleFactors" : [ 1, 2, 4, 8, 16, 32, 64, 128 ] }
+  ],
+  "profile" : [
+     "http://iiif.io/api/image/2/level1.json",
+     { "formats" : [ "jpg" ],
+       "qualities" : [ "native","color","gray" ],
+       "supports" : ["regionByPct","sizeByForcedWh","sizeByWh","sizeAboveFull","rotationBy90s","mirroring","gray"] }
+  ]
+}

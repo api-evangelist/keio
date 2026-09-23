@@ -1,0 +1,118 @@
+generated: '2026-09-01'
+method: derived
+source: >-
+  Terms extracted from live responses of Keio-operated surfaces on 2026-09-01: the KOARA OAI-PMH
+  Identify, ListMetadataFormats, ListSets and GetRecord responses; the IIIF Presentation manifest
+  and Image information document; and the GakuNin EntityDescriptor for Keio's identity provider.
+  Every term below appears verbatim in a captured response under examples/.
+provider: Keio University
+providerId: keio
+description: >-
+  The working vocabulary of Keio University's public machine-readable surfaces. It is worth
+  recording because it is almost entirely borrowed: KOARA speaks Dublin Core and junii2, the
+  Media Center speaks IIIF, the identity provider speaks SAML. The only genuinely Keio-authored
+  vocabulary in the whole estate is its set hierarchy — the names of the faculties, graduate
+  schools and research centres that deposit into the repository — and its archive codes. That is
+  the honest shape of a university's programmable footprint: institutional nouns wrapped in
+  community standards.
+
+term_sets:
+  - name: KOARA repository structure
+    x-operator: institution
+    authored_by: Keio University Media Center
+    source: examples/keio-koara-oai-listsets.xml
+    terms:
+      - term: setSpec
+        definition: >-
+          Colon-delimited hierarchical set identifier. KOARA roots its hierarchy at `index3`
+          (`/Public`) and nests faculty and centre sets beneath it, e.g. `index3:index8`.
+      - term: index3
+        label: /Public
+        definition: Root set containing all publicly disseminated KOARA content.
+      - term: Article
+        definition: Flat resource-type set, applied in parallel with the hierarchical index sets.
+      - term: koara_id
+        definition: >-
+          KOARA's internal record identifier, of the form `<NII catalogue id>-<date>-<sequence>`,
+          e.g. AA11413507-20050000-0001. It appears both inside the OAI identifier
+          (`koara-j:koara_id/…`) and as the `koara_id` query parameter on detail.php and
+          download.php item URLs.
+      - term: 'koara-j'
+        definition: OAI identifier namespace prefix used by the repository.
+    institutional_sets_observed: 100
+    institutional_sets_sample:
+      - 商学部 (Faculty of Business and Commerce)
+      - 法務研究科 (Law School)
+      - メディア・コミュニケーション研究所 (Institute for Media and Communications Research)
+      - 産業研究所 (Institute for Economic and Industrial Studies)
+      - 福澤研究センター (Fukuzawa Memorial Center for Modern Japanese Studies)
+      - アート・センター (Keio University Art Center)
+      - 日吉紀要 (Hiyoshi Review)
+
+  - name: Dublin Core (oai_dc)
+    x-operator: standard
+    authored_by: Dublin Core Metadata Initiative
+    namespace: http://www.openarchives.org/OAI/2.0/oai_dc/
+    terms_observed:
+      - title
+      - creator
+      - description
+      - publisher
+      - date
+      - type
+      - identifier
+      - language
+    note: >-
+      Creator values are supplied in three parallel forms per author — katakana reading, romanised,
+      and kanji — which is a Japanese repository convention worth knowing before parsing.
+
+  - name: junii2
+    x-operator: standard
+    authored_by: National Institute of Informatics (NII)
+    namespace: http://irdb.nii.ac.jp/oai
+    schema: http://irdb.nii.ac.jp/oai/junii2-3-1.xsd
+    note: >-
+      The Japanese institutional-repository metadata schema, harvested by NII's IRDB. Advertised by
+      KOARA alongside oai_dc.
+    terms_observed:
+      - term: 'NIIType'
+        definition: >-
+          Resource-type vocabulary emitted into oai_dc `type` alongside the Dublin Core value, e.g.
+          `NIIType:Departmental Bulletin Paper`.
+
+  - name: IIIF Presentation and Image
+    x-operator: standard
+    authored_by: IIIF Consortium
+    namespace: http://iiif.io/api/presentation/2/context.json
+    terms_observed:
+      - 'sc:Manifest'
+      - 'sc:Sequence'
+      - 'sc:Canvas'
+      - 'oa:Annotation'
+      - 'dctypes:Image'
+      - attribution
+      - license
+      - service
+      - profile
+      - tiles
+      - sizes
+    keio_authored_within:
+      - term: archive code
+        definition: >-
+          Keio's own collection key inside the IIIF path — `GTB` for the Gutenberg 42-line Bible.
+          Not published anywhere as a list; observed only in resolved URLs.
+
+  - name: SAML / Shibboleth federation metadata
+    x-operator: standard
+    authored_by: OASIS / REFEDS / Shibboleth Consortium
+    terms_observed:
+      - IDPSSODescriptor
+      - 'shibmd:Scope'
+      - 'mdui:UIInfo'
+      - 'mdui:DiscoHints'
+      - 'mdrpi:RegistrationInfo'
+      - SingleSignOnService
+      - NameIDFormat
+    keio_authored_within:
+      - term: keio.ac.jp
+        definition: The scope Keio asserts in the federation — the namespace within which its assertions are authoritative.

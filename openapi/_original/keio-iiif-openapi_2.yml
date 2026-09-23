@@ -1,0 +1,230 @@
+# x-archived-from: keio-iiif-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.1.0
+info:
+  title: Keio University Media Center Digital Collections IIIF API
+  version: '2.1'
+  summary: IIIF Presentation API 2.1 manifests and IIIF Image API 2.0 Level 1 image delivery for Keio University Libraries' digitised rare-book and special-collection holdings.
+  description: >-
+    The Keio University Media Center (Keio University Libraries) publishes its digitised special
+    collections as IIIF — the International Image Interoperability Framework — on two hosts it owns
+    outright: `dcollections.lib.keio.ac.jp` serves IIIF Presentation API 2.1 manifests, and
+    `iiif.lib.keio.ac.jp` serves IIIF Image API 2.0 Level 1 tiles from an IIPImage server. Both are
+    anonymous, unauthenticated and directly machine-readable. This is the single most substantial
+    institution-operated programmable surface Keio has, and the catalog previously held no record
+    of it at all.
+
+
+    The collections behind it are internationally significant: the Gutenberg 42-line Bible (the
+    HUMI copy — 656 canvases in one manifest), Fukuzawa Yukichi's manuscripts, incunabula, Nara
+    picture books, Chinese classical texts, the Takahashi Seiichiro ukiyo-e collection, and the
+    Anatomia and Aramata collections. The Media Center announced IIIF conformance in April 2017.
+    Manifests carry `attribution: 慶應義塾大学メディアセンター / Keio University Libraries`.
+
+
+    This description was written by API Evangelist from live probes on 2026-09-01. Keio publishes
+    no OpenAPI of its own; the interface it does publish is the IIIF specification itself, which
+    the responses self-describe against via `@context`. Every path, parameter and response below
+    was observed in a real response and the captured responses are stored under `examples/`.
+
+
+    Two things are stated honestly rather than smoothed over. First, only the Gutenberg (`GTB`)
+    archive's manifest path was confirmed by direct probe; the `{archive}` path template is read
+    from that manifest's own `@id` and image `service.@id` values, not from published documentation,
+    and eight other guessed archive codes returned 404. Second, the site's `sitemap.xml` leaks a
+    build host at `da.media.opst.biz` — the Drupal site was built by a vendor — but the serving
+    hosts, the images, the manifests and the attribution are all Keio's.
+  termsOfService: https://dcollections.lib.keio.ac.jp/ja/about
+  contact:
+    name: Keio University Media Center (Keio University Libraries)
+    url: https://www.lib.keio.ac.jp/en/
+  x-operator: institution
+  x-operator-evidence: >-
+    Both dcollections.lib.keio.ac.jp and iiif.lib.keio.ac.jp are under Keio University's own
+    registrable domain keio.ac.jp. The manifest's own `@id` is
+    https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json and its
+    `attribution` is "慶應義塾大学メディアセンター / Keio University Libraries". The image service
+    is an institution-hosted IIPImage server; there is no vendor host in the delivery path and no
+    shared vendor contract — IIIF is an open specification, not a product, and this deployment is
+    Keio's own.
+  x-provenance:
+    generated: '2026-09-01'
+    method: derived
+    source: >-
+      Written from live probes on 2026-09-01 of
+      https://dcollections.lib.keio.ac.jp/sites/default/files/iiif/GTB/manifest.json (HTTP 200,
+      458,789 bytes, application/json, 656 canvases),
+      https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif/info.json (HTTP 200) and
+      https://iiif.lib.keio.ac.jp/iipsrv/GTB/tif/000a.tif/full/200,/0/default.jpg (HTTP 200,
+      image/jpeg, 81,193 bytes). Raw responses saved to examples/.
+  license:
+    name: Digital Collections terms of use — Keio University Media Center
+    url: https://dcollections.lib.keio.ac.jp/ja/about
+servers:
+  - url: https://dcollections.lib.keio.ac.jp
+    description: IIIF Presentation API 2.1 manifest host (Keio University Media Center)
+  - url: https://iiif.lib.keio.ac.jp
+    description: IIIF Image API 2.0 Level 1 host (IIPImage, Keio University Media Center)
+tags:
+  - name: IIIF
+    description: IIIF Presentation and Image API surfaces for Keio's digitised collections.
+paths:
+  /sites/default/files/iiif/{archive}/manifest.json:
+    get:
+      tags:
+        - IIIF
+      operationId: getIiifManifest
+      summary: Retrieve a IIIF Presentation API 2.1 manifest for a digitised collection
+      description: >-
+        Returns a `sc:Manifest` in the IIIF Presentation API 2 context describing one digitised
+        item or collection — label, attribution, license, and a `sequences[0].canvases[]` array in
+        which each canvas carries an image resource whose `service` points at the Image API host.
+        Confirmed on `archive=GTB` (Gutenberg 42-line Bible, 656 canvases). Anonymous; no
+        authentication.
+      parameters:
+        - name: archive
+          in: path
+          required: true
+          description: >-
+            Collection archive code. Confirmed value: `GTB` (Gutenberg 42-line Bible). Other
+            collections exist on the site (fukuzawa, incunabula, kanseki, gyosai, bon-ukiyoe,
+            anatomia, aramata, fusen, icp) but their archive codes are not published and were not
+            resolvable by probe, so they are deliberately not enumerated here.
+          schema:
+            type: string
+            examples:
+              - GTB
+      responses:
+        '200':
+          description: IIIF Presentation API 2.1 manifest.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IiifManifest'
+              examples:
+                gutenberg:
+                  summary: Gutenberg 42-line Bible, canvases truncated to two
+                  externalValue: ../examples/keio-iiif-manifest-excerpt.json
+        '404':
+          description: No manifest for the requested archive code.
+  /iipsrv/{archive}/tif/{image}/info.json:
+    get:
+      tags:
+        - IIIF
+      operationId: getIiifImageInfo
+      summary: Retrieve IIIF Image API 2.0 image information
+      description: >-
+        Returns the image information document for a single source image — dimensions, the
+        precomputed `sizes` pyramid, the `tiles` specification and the compliance profile. Observed
+        profile is `http://iiif.io/api/image/2/level1.json` with formats `jpg`, qualities
+        `native, color, gray`, and support for `regionByPct`, `sizeByForcedWh`, `sizeByWh`,
+        `sizeAboveFull`, `rotationBy90s`, `mirroring` and `gray`. Served from the
+        `https://iiif.lib.keio.ac.jp` server.
+      parameters:
+        - name: archive
+          in: path
+          required: true
+          schema:
+            type: string
+            examples:
+              - GTB
+        - name: image
+          in: path
+          required: true
+          description: Source image filename, including the `.tif` extension.
+          schema:
+            type: string
+            examples:
+              - 000a.tif
+      responses:
+        '200':
+          description: IIIF Image API 2.0 image information document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IiifImageInfo'
+              examples:
+                gutenbergFolio:
+                  summary: 4500 x 6200 source folio, seven-level size pyramid
+                  externalValue: ../examples/keio-iiif-image-info.json
+  /iipsrv/{archive}/tif/{image}/{region}/{size}/{rotation}/{quality}.{format}:
+    get:
+      tags:
+        - IIIF
+      operationId: getIiifImage
+      summary: Retrieve a region of an image at a given size, rotation and quality
+      description: >-
+        The IIIF Image API 2.0 image request. Confirmed live at Level 1 compliance —
+        `/full/200,/0/default.jpg` returned HTTP 200, `image/jpeg`, 81,193 bytes. The parameter
+        grammar is the IIIF Image API 2.0 grammar; the supported subset for this server is
+        enumerated in the `info.json` `profile` block rather than restated here.
+      parameters:
+        - name: archive
+          in: path
+          required: true
+          schema:
+            type: string
+            examples:
+              - GTB
+        - name: image
+          in: path
+          required: true
+          schema:
+            type: string
+            examples:
+              - 000a.tif
+        - name: region
+          in: path
+          required: true
+          description: '`full`, `square`, `x,y,w,h`, or `pct:x,y,w,h`.'
+          schema:
+            type: string
+            examples:
+              - full
+        - name: size
+          in: path
+          required: true
+          description: '`full`, `max`, `w,`, `,h`, `pct:n`, `w,h`, or `!w,h`.'
+          schema:
+            type: string
+            examples:
+              - 200,
+        - name: rotation
+          in: path
+          required: true
+          description: Degrees, optionally prefixed with `!` for mirroring. This server supports rotationBy90s.
+          schema:
+            type: string
+            examples:
+              - '0'
+        - name: quality
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - default
+              - native
+              - color
+              - gray
+        - name: format
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - jpg
+      responses:
+        '200':
+          description: The requested image region.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+components:
+  schemas:
+    IiifManifest:
+      $ref: ../json-schema/keio-iiif-manifest-schema.json
+    IiifImageInfo:
+      $ref: ../json-schema/keio-iiif-image-info-schema.json

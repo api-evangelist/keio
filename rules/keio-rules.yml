@@ -1,0 +1,147 @@
+generated: '2026-09-01'
+method: derived
+source: >-
+  Rules written against the two OpenAPI contracts in this repository
+  (openapi/keio-koara-oai-pmh-openapi.yml, openapi/keio-iiif-openapi.yml), both of which were
+  themselves derived from live probes on 2026-09-01. Built from Spectral built-in functions only —
+  no custom JavaScript — so the ruleset runs unmodified.
+provider: Keio University
+providerId: keio
+description: >-
+  A governance ruleset for this repository's Keio contracts. Its purpose is narrower and more
+  specific than a generic style guide: because Keio publishes no interface descriptions of its own,
+  every OpenAPI here was written by API Evangelist, and the greatest risk is not that the contracts
+  are ugly but that they drift into asserting things about Keio that were never observed. The rules
+  therefore enforce provenance and operator attribution as hard errors, and style only as warnings.
+extends: 'spectral:oas'
+rules:
+  keio-operator-required:
+    description: Every contract in this repository must declare who operates the thing it describes.
+    message: 'info.x-operator is required and must be one of: institution, tenant, vendor, registry, federation.'
+    severity: error
+    given: $.info
+    then:
+      - field: x-operator
+        function: truthy
+      - field: x-operator
+        function: enumeration
+        functionOptions:
+          values:
+            - institution
+            - tenant
+            - vendor
+            - registry
+            - federation
+
+  keio-operator-evidence-required:
+    description: An operator verdict without evidence is an assertion, not a finding.
+    message: info.x-operator-evidence must state why this operator verdict was reached.
+    severity: error
+    given: $.info
+    then:
+      field: x-operator-evidence
+      function: truthy
+
+  keio-provenance-required:
+    description: >-
+      An unmarked artifact is credited to the institution as though they published it. Every
+      contract must carry generated, method and source.
+    message: info.x-provenance must carry generated, method and source.
+    severity: error
+    given: $.info.x-provenance
+    then:
+      - field: generated
+        function: truthy
+      - field: method
+        function: truthy
+      - field: source
+        function: truthy
+
+  keio-provenance-method-controlled:
+    description: The provenance method must come from the controlled vocabulary.
+    message: 'info.x-provenance.method must be one of: searched, generated, derived, probed, none.'
+    severity: error
+    given: $.info.x-provenance
+    then:
+      field: method
+      function: enumeration
+      functionOptions:
+        values:
+          - searched
+          - generated
+          - derived
+          - probed
+          - none
+
+  keio-servers-must-be-institutional:
+    description: >-
+      A contract saved under this institution's slug must be served from a host the institution
+      owns. Anything else belongs in the vendor's own repository, recorded here only as a
+      relationship.
+    message: Every server URL in a Keio contract must be on a keio.ac.jp or keio.jp host.
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://[a-z0-9.-]*keio\.(ac\.)?jp(/|$)'
+
+  keio-server-description-required:
+    description: A server entry should name what it is and who runs it.
+    severity: warn
+    given: $.servers[*]
+    then:
+      field: description
+      function: truthy
+
+  keio-contact-required:
+    description: A contract should name a real contact at the operating institution.
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  keio-operation-id-required:
+    description: Every operation needs a stable identifier for clients and agents.
+    severity: error
+    given: $.paths[*][get,put,post,delete,options,head,patch,trace]
+    then:
+      field: operationId
+      function: truthy
+
+  keio-operation-description-required:
+    description: >-
+      Because no vendor documentation exists behind these contracts, the description is the only
+      documentation a consumer gets.
+    severity: warn
+    given: $.paths[*][get,put,post,delete,options,head,patch,trace]
+    then:
+      field: description
+      function: truthy
+
+  keio-parameter-description-required:
+    description: Every parameter must say what it does and, where relevant, which values were actually confirmed.
+    severity: warn
+    given: $.paths[*][*].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  keio-response-example-expected:
+    description: >-
+      A contract derived from probes should point at the captured response that justifies it.
+      Warning rather than error, because not every response was captured.
+    severity: warn
+    given: $.paths[*][*].responses['200'].content[*]
+    then:
+      field: examples
+      function: truthy
+
+  keio-license-required:
+    description: State the terms the data is offered under, or the absence of them.
+    severity: warn
+    given: $.info
+    then:
+      field: license
+      function: truthy

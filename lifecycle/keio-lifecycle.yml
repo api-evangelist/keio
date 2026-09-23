@@ -1,0 +1,96 @@
+generated: '2026-09-01'
+method: derived
+authorship: API Evangelist
+probe_basis: live probe sweep of Keio University surfaces, 2026-09-01
+source: >-
+  Live probes on 2026-09-01, plus dated registry records (DataCite provider `keio` created
+  2025-03-11; GakuNin registrationInstant 2014-02-24T10:22:10Z) and the Keio Media Center's own
+  public announcements of KOARA (2006) and IIIF conformance (April 2017).
+provider: Keio University
+providerId: keio
+description: >-
+  Lifecycle posture for Keio University's public API surfaces. The honest summary is that Keio
+  operates long-lived, stable interfaces and manages none of them as a product: there is no
+  versioning policy, no changelog, no deprecation notice, no status page and no announcement
+  channel for any of them. Stability here comes from inertia rather than from commitment — which is
+  a genuinely useful thing for a consumer to know, and is different from either a managed API or an
+  abandoned one.
+
+surfaces:
+  - name: KOARA OAI-PMH Metadata API
+    x-operator: institution
+    status: production
+    first_available: '2006'
+    first_available_note: KOARA was released by the Keio University Media Center in 2006 on the XooNips platform.
+    versioning: >-
+      Protocol versioning only. The interface declares OAI-PMH protocolVersion 2.0; there is no
+      Keio-side API version, no version in the path and no content negotiation beyond the
+      metadataPrefix parameter.
+    version_observed: '2.0'
+    breaking_change_policy: none published
+    deprecation_policy: none published
+    changelog: none
+    status_page: none
+    stability_signal: >-
+      Record datestamps in the repository run from 2009 through 2022 in the sample harvested,
+      indicating continuous operation. The endpoint responded to all six probed verbs on
+      2026-09-01.
+    risk: >-
+      The underlying repository software, XooNips, is a long-dormant Japanese research project.
+      A platform migration would be the realistic source of a breaking change, and there is no
+      channel on which such a migration would be announced to harvesters.
+
+  - name: Keio Media Center Digital Collections IIIF APIs
+    x-operator: institution
+    status: production
+    first_available: '2017-04'
+    first_available_note: >-
+      The Media Center announced IIIF conformance for its Digital Collections in April 2017,
+      reported by the National Diet Library's Current Awareness Portal.
+    versioning: >-
+      Specification versioning only — Presentation API 2.1 and Image API 2.0 Level 1, declared
+      through the `@context` and `profile` values in each response. Keio has not migrated to IIIF
+      Presentation 3.0; consumers written against v3 will not work without a v2 code path.
+    version_observed: 'Presentation 2 / Image 2, level1'
+    breaking_change_policy: none published
+    deprecation_policy: none published
+    changelog: none
+    status_page: none
+    stability_signal: >-
+      Manifests and image tiles both served on 2026-09-01, nine years after launch, on the original
+      v2 contexts. The Drupal front end is current (Drupal 10.4.3), so the site is actively
+      maintained even though the IIIF version has not moved.
+    risk: >-
+      Archive codes are not published anywhere. A consumer can only discover a manifest URL by
+      resolving it from the site's HTML, so any change to the site's markup or URL structure breaks
+      discovery silently.
+
+  - name: GakuNin / eduGAIN identity provider
+    x-operator: institution
+    status: production
+    registered: '2014-02-24T10:22:10Z'
+    versioning: SAML 2.0; metadata refreshed through GakuNin's aggregate rather than versioned by Keio.
+    deprecation_policy: Governed by GakuNin's federation participation policy, not by Keio.
+    changelog: GakuNin metadata aggregate carries registrationInstant; no per-entity changelog.
+    stability_signal: Continuously registered for over twelve years.
+    open_defect: >-
+      The entityID host gakunin1.keio.ac.jp presents an expired TLS certificate. It does not break
+      federation, but it is an unattended-maintenance signal on the host that carries the
+      institution's federated identity.
+
+  - name: DataCite membership (provider `keio`)
+    x-operator: registry
+    status: new and barely used
+    joined: '2025-03-11'
+    detail: >-
+      Registered 2025-03-11 as a consortium organisation under the Figshare (FSCO) consortium with
+      prefix 10.71825. Five DOIs minted as of 2026-09-01. Recorded at its real size rather than
+      described as a research-data programme.
+
+estate_wide:
+  developer_communication: none
+  detail: >-
+    Across every probed host, Keio publishes no changelog, no status page, no API announcement
+    feed, no deprecation notice, no terms of use for machine access and no security.txt
+    (https://www.keio.ac.jp/.well-known/security.txt returns a real 404). A consumer of these APIs
+    learns about a change by the change happening.
