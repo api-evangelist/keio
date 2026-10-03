@@ -162,7 +162,7 @@ paths:
                 format: binary
 components:
   schemas:
-    IiifManifest:
-      $ref: ../json-schema/keio-iiif-manifest-schema.json
     IiifImageInfo:
       $ref: ../json-schema/keio-iiif-image-info-schema.json
+    IiifManifest:
+      $ref: ../json-schema/keio-iiif-manifest-schema.json
